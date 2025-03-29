@@ -1,5 +1,5 @@
 {
-  "time": "20250328140052",
+  "time": "20250329194125",
   "url": "https://github.com/babalae/bettergi-scripts-list/archive/refs/heads/main.zip",
   "file": "repo.json",
   "indexes": [
@@ -3309,6 +3309,23 @@
           ]
         },
         {
+          "name": "红果果菇",
+          "type": "directory",
+          "children": [
+            {
+              "name": "红果果菇-6个.json",
+              "type": "file",
+              "hash": "1839c664e14968c41ef3b4df8de1c04ea1d018d7",
+              "version": "1839c66",
+              "author": "HZYgrandma",
+              "description": "",
+              "tags": [
+                "红果果菇"
+              ]
+            }
+          ]
+        },
+        {
           "name": "虹彩蔷薇",
           "type": "directory",
           "children": [
@@ -4210,7 +4227,7 @@
           ]
         },
         {
-          "name": "烬芯花（不推荐使用法器角色）",
+          "name": "烬芯花（使用单手剑、大剑、长枪角色）",
           "type": "directory",
           "children": [
             {
@@ -4221,7 +4238,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4232,7 +4249,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4243,7 +4260,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4254,7 +4271,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4265,7 +4282,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4276,7 +4293,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4287,7 +4304,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4298,7 +4315,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4309,7 +4326,7 @@
               "author": "Tool_tingsu",
               "description": "感谢 @曦 老师的路线脚本",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4320,7 +4337,7 @@
               "author": "Tool_tingsu",
               "description": "",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4331,7 +4348,7 @@
               "author": "Tool_tingsu",
               "description": "",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4342,7 +4359,7 @@
               "author": "Tool_tingsu",
               "description": "",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4353,7 +4370,7 @@
               "author": "Tool_tingsu",
               "description": "",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             },
             {
@@ -4364,7 +4381,40 @@
               "author": "Tool_tingsu",
               "description": "",
               "tags": [
-                "烬芯花（不推荐使用法器角色）"
+                "烬芯花（使用单手剑、大剑、长枪角色）"
+              ]
+            },
+            {
+              "name": "烬芯花15-沃陆之邦右侧-1个（请使用bgi0.43.6）.json",
+              "type": "file",
+              "hash": "4b9c4011065f832cb7b803e58acefbe360ff8056",
+              "version": "4b9c401",
+              "author": "",
+              "description": "",
+              "tags": [
+                "烬芯花（使用单手剑、大剑、长枪角色）"
+              ]
+            },
+            {
+              "name": "烬芯花16-石火陨落处-2个（请使用bgi0.43.6）.json",
+              "type": "file",
+              "hash": "bd866233383e353653aa45cafe54f72699d780d7",
+              "version": "bd86623",
+              "author": "",
+              "description": "",
+              "tags": [
+                "烬芯花（使用单手剑、大剑、长枪角色）"
+              ]
+            },
+            {
+              "name": "烬芯花17-沃陆之邦右下-1个（请使用bgi0.43.6）.json",
+              "type": "file",
+              "hash": "927d8bd085e630ac1549c07619776d62b04f6475",
+              "version": "927d8bd",
+              "author": "",
+              "description": "",
+              "tags": [
+                "烬芯花（使用单手剑、大剑、长枪角色）"
               ]
             }
           ]
@@ -20133,6 +20183,72 @@
           ]
         },
         {
+          "name": "琉鳞石",
+          "type": "directory",
+          "children": [
+            {
+              "name": "琉鳞石-孑遗的留迹-10个.json",
+              "type": "file",
+              "hash": "7632bfc1cb19976ab4b173b804318884ad6f160d",
+              "version": "7632bfc",
+              "author": "ddaodan",
+              "description": "",
+              "tags": [
+                "琉鳞石",
+                "雷元素力收集"
+              ]
+            },
+            {
+              "name": "琉鳞石-沃陆之邦七天神像东北-14个.json",
+              "type": "file",
+              "hash": "c41c2501fdfd6956c50c261e40852919d49d55c6",
+              "version": "c41c250",
+              "author": "ddaodan",
+              "description": "",
+              "tags": [
+                "琉鳞石",
+                "雷元素力收集"
+              ]
+            },
+            {
+              "name": "琉鳞石-火山南-7个.json",
+              "type": "file",
+              "hash": "79c2804061e1de9a469feb402d3e0d517d4f9463",
+              "version": "79c2804",
+              "author": "ddaodan",
+              "description": "",
+              "tags": [
+                "琉鳞石",
+                "雷元素力收集"
+              ]
+            },
+            {
+              "name": "琉鳞石-火山西北-13个.json",
+              "type": "file",
+              "hash": "9d7a4bd0f8d1506b85ffba4ac51fa2ac25bb5d91",
+              "version": "9d7a4bd",
+              "author": "ddaodan",
+              "description": "",
+              "tags": [
+                "琉鳞石",
+                "雷元素力收集"
+              ]
+            },
+            {
+              "name": "琉鳞石-石火坠陨处-10个.json",
+              "type": "file",
+              "hash": "b8eeb7434ad31df675edb97050c61075cecc2353",
+              "version": "b8eeb74",
+              "author": "ddaodan",
+              "description": "",
+              "tags": [
+                "琉鳞石",
+                "雷元素力收集"
+              ]
+            }
+          ]
+        },
+        {
           "name": "龙蜥",
           "type": "directory",
           "children": [
@@ -30760,6 +30876,15 @@
           "version": "1.0",
           "author": "风埠",
           "description": "切换4号角色~|~用于切换4号角色",
+          "tags": []
+        },
+        {
+          "name": "切换武器 自定义",
+          "type": "directory",
+          "hash": "b0f54e1e130bf0d81692f90484de60894849b87d",
+          "version": "1.01",
+          "author": "吉吉喵",
+          "description": "选择切换武器的角色 ~|~可自定义 当前配队角色武器，默认4号位角色，默认四行为一页",
           "tags": []
         },
         {
