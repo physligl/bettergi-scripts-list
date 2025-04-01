@@ -1,7 +1,7 @@
 (async function () {
 
-    const area_list = ['蒙德', '璃月', '稻妻', '须弥', '枫丹', '纳塔', '至冬']
-    const fish_list = ['花鳉', '波波心羽鲈', '烘烘心羽鲈', '维护机关·水域清理者', '维护机关·态势控制者', '维护机关·澄金领队型', '海涛斧枪鱼', '维护机关·初始能力型', '维护机关·白金典藏型', '吹沙角鲀', '甜甜花鳉', '擒霞客', '水晶宴', '斗棘鱼', '炮鲀', '流纹褐蝶鱼', '锖假龙', '金赤假龙', '玉玉心羽鲈', '赤魔王', '长生仙', '苦炮鲀', '肺棘鱼', '流纹京紫蝶鱼', '琉璃花鳉', '伪装鲨鲨独角鱼', '繁花斗士急流鱼', '深潜斗士急流鱼', '晚霞翻车鲀', '青浪翻车鲀', '拟似燃素独角鱼', '炽岩斗士急流鱼', '蓝染花鳉', '鸩棘鱼', '流纹茶蝶鱼', '雪中君', '真果角鲀', '青金斧枪鱼', '暮云角鲀', '翡玉斧枪鱼', '沉波蜜桃']
+    const area_list = ['蒙德', '璃月', '稻妻', '须弥', '枫丹', '纳塔', '至冬', '层岩巨渊·地下矿区', '渊下宫']
+    const fish_list = ['花鳉', '波波心羽鲈', '烘烘心羽鲈', '维护机关·水域清理者', '维护机关·态势控制者', '维护机关·澄金领队型', '海涛斧枪鱼', '维护机关·初始能力型', '维护机关·白金典藏型', '吹沙角鲀', '甜甜花鳉', '擒霞客', '水晶宴', '斗棘鱼', '炮鲀', '流纹褐蝶鱼', '锖假龙', '金赤假龙', '玉玉心羽鲈', '赤魔王', '长生仙', '苦炮鲀', '肺棘鱼', '流纹京紫蝶鱼', '琉璃花鳉', '伪装鲨鲨独角鱼', '繁花斗士急流鱼', '深潜斗士急流鱼', '晚霞翻车鲀', '青浪翻车鲀', '拟似燃素独角鱼', '炽岩斗士急流鱼', '蓝染花鳉', '鸩棘鱼', '流纹茶蝶鱼', '雪中君', '真果角鲀', '青金斧枪鱼', '暮云角鲀', '翡玉斧枪鱼', '沉波蜜桃', '雷鸣仙']
     const bait_list = ['果酿饵', '酸桔饵', '维护机关频闪诱饵', '甘露饵', '赤糜饵', '飞蝇假饵', '蠕虫假饵', '澄晶果粒饵', '温火饵']
     const material_msg = {
         "风缠": ["花鳉", "蓝染花鳉", "鸩棘鱼", "流纹茶蝶鱼"],
@@ -65,7 +65,8 @@
         '翡玉斧枪鱼': {'bait': '甘露饵', 'time': '全天'},
         '沉波蜜桃': {'bait': '甘露饵', 'time': '白天'},
         '雷鸣仙': {'bait': '蠕虫假饵', 'time': '夜晚'},
-        '': {},
+        '佛玛洛鳐': {'bait': '', 'time': ''},
+        '迪芙妲鳐': {'bait': '', 'time': ''}
     }
     const path_pathing = [
         '枫丹-垂钓点-伊黎耶林区幽林雾道西南-花鳉_波波心羽鲈_烘烘心羽鲈_维护机关·水域清理者_维护机关·态势控制者_维护机关·澄金领队型-果酿饵_酸橘饵_维护机关频闪诱饵-普通',
@@ -151,6 +152,7 @@
         "夜晚": {"name": "Nighttime", "param": 2},
         "禁用": {"name": "Block", "param": ""},
     }
+    const statue_name = "蒙德-七天神像-苍风高地";
     // 存储本次任务中的所有鱼类，作为调节时间的关键参考
     let list_fish = [];
 
@@ -197,7 +199,7 @@
             // 读取鱼饵
             let path_sort_bait = typeof(settings.path_sort_bait) === 'undefined' ? [] : settings.path_sort_bait.split(' ');
             // 读取兑换材料
-            let path_sort_material = typeof(settings.path_sort_material) === 'undefined' ? "无" : settings.path_sort_material;
+            let path_sort_material = typeof(settings.path_sort_material) === 'undefined' ? "无(默认)" : settings.path_sort_material;
             // 读取调试信息
             let path_select = typeof(settings.path_select) === 'undefined' ? "无(默认)" : settings.path_select;
 
@@ -294,19 +296,28 @@
         }
     }
 
-    async function run_file(path_msg, time_out_throw, time_out_whole) {
-        const base_path_pathing = "assets/Pathing/";
+    async function run_file(path_msg, time_out_throw, time_out_whole, is_con, block_gcm, block_fight, block_tsurumi, auto_skip) {
+        const base_path_pathing = "assets/pathing/";
         const base_path_gcm = "assets/KeyMouseScript/";
+        const base_path_statues = "assets/pathing_statues/";
         const file_name = `${path_msg["area"]}-${path_msg["type"]}-${path_msg["detail"]}`;
-        // 判断是否是调式模式
-        const is_con = !(typeof(settings.path_select) === 'undefined' || settings.path_select === "无(默认)");
-        // 键鼠设置读取
-        const block_gcm = typeof(settings.block_gcm) === 'undefined' ? false : settings.block_gcm;
+
         // 检测禁用键鼠设置
-        if (block_gcm && !is_con) {
+        if (block_gcm && !is_con && path_msg["addition"] === "GCM") {
             log.info(`跳过键鼠路线: ${file_name}`)
             return null;
         }
+        // 检测禁用战斗设置
+        if (!block_fight && !is_con && path_msg["addition"] === "战斗") {
+            log.info(`跳过战斗路线: ${file_name}`)
+            return null;
+        }
+        // 检测禁用鹤观设置
+        if (!block_tsurumi && !is_con && /鹤观/.test(path_msg["detail"])) {
+            log.info(`跳过鹤观路线: ${file_name}`)
+            return null;
+        }
+
         // 时间调节
         let fishing_time = "全天";
         // 读取游戏模式（多人模式则禁用时间调节）[暂时不可用]
@@ -353,6 +364,46 @@
             fishing_time = path_time;
         }
 
+        // 4点自动领取月卡
+        let time_now = new Date();
+        let time_4 = new Date(time_now.getFullYear(), time_now.getMonth(), time_now.getDate(), 4, 0, 0); // 4点
+        let time_predict_end; // 根据超时时间预测本次钓鱼结束时间（加1分钟容错）
+        if (fishing_time === "全天") {
+            time_predict_end = time_now.setSeconds(time_now.getSeconds() + time_out_whole * 2 + 60);
+        } else {
+            time_predict_end = time_now.setSeconds(time_now.getSeconds() + time_out_whole + 60);
+        }
+        // 30s点击一次，等待领取月卡
+        let step_flag = 0; // 领取月卡步骤标志
+        while (auto_skip && time_now < time_4 && time_predict_end >= time_4) {
+            log.info(`等待领取月卡(剩余${Math.floor((time_4 - new Date()) / 1000)}s)...`);
+            if (step_flag == 0) {
+                // 传送到七天神像
+                await pathingScript.runFile(base_path_pathing + statue_name + ".json");
+                step_flag += 1;
+            }
+            await sleep(30000);
+            keyDown("VK_LBUTTON");
+            await sleep(100);
+            keyUp("VK_LBUTTON");
+
+            // 本次已经到达4点(5s容错)
+            if (new Date() > time_4.setSeconds(time_4.getSeconds() - 5)) {
+                step_flag += 1;
+                auto_skip = false;
+            }
+
+        }
+        // 领取月卡(点击两次)
+        if (step_flag == 2) {
+            step_flag = 0;
+            await sleep(5); // 补回容错时间
+            await click(1450, 1020); // 点击时间调节的确认按钮的位置
+            await sleep(5); // 等待月卡动画时间
+            await click(1450, 1020);
+            await sleep(1);
+        }
+
         log.info(`该钓鱼点的时间: ${fishing_time}`);
 
         await pathingScript.runFile(base_path_pathing + file_name + ".json");
@@ -383,15 +434,79 @@
         }
         // 筛选路径
         let path_filter = pathing_filter();
+        // 读取要继续的路径
+        let path_continue = typeof(settings.path_continue) === 'undefined' ? "无(默认)" : settings.path_continue;
+        let is_continue = true;
+        // 判断是否是调式模式
+        const is_con = !(typeof(settings.path_select) === 'undefined' || settings.path_select === "无(默认)");
+        // 键鼠设置读取
+        const block_gcm = typeof(settings.block_gcm) === 'undefined' ? false : settings.block_gcm;
+        // 战斗设置读取
+        const block_fight = typeof(settings.block_fight) === 'undefined' ? false : settings.block_fight;
+        // 鹤观设置读取
+        const block_tsurumi = typeof(settings.block_tsurumi) === 'undefined' ? false : settings.block_tsurumi;
+        // 读取自动拾取设置
+        const auto_pick = typeof(settings.auto_pick) === 'undefined' ? false : settings.auto_pick;
+        // 读取4点自动领取月卡的设置
+        const auto_skip = typeof(settings.auto_skip) === 'undefined' ? false : settings.auto_skip;
+        // 读取终止时间
+        const kill_hour = typeof(settings.time_kill_hour) === 'undefined' ? "无" : settings.time_kill_hour;
+        const kill_minute = typeof(settings.time_kill_minute) === 'undefined' ? "无" : settings.time_kill_minute;
+        const is_time_kill = kill_hour !== "无" && kill_minute !== "无"; // 判断是否启用
+        let time_target = new Date();
+
+        if (is_time_kill) {
+            let now = new Date();
+            time_target.setHours(parseInt(kill_hour), 10);
+            time_target.setMinutes(parseInt(kill_minute), 10);
+            time_target.setSeconds(0);
+            time_target.setMilliseconds(0);
+            if (time_target < now) { // 不是当天终止，天数+1
+                time_target.setDate(now.getDate() + 1); // 不会超限
+            }
+            let time_show = `${time_target.getFullYear()}/${time_target.getMonth()}/${time_target.getDate()} ${time_target.getHours()}:${time_target.getMinutes()}`;
+            log.info(`定时关闭已启用，将在 ${time_show} 后停止后续任务...`);
+            await sleep(2000);
+        } else if (kill_hour !== "无" ^ kill_minute !== "无") {
+            log.warn("如果需要启用定时关闭，请确保同时设置了小时和分钟！\n任务将在5s后继续...");
+            await sleep(5000);
+        }
+
         log.info(`本次总计 ${path_filter.length} 个钓鱼点`);
+        if (path_continue !== "无(默认)") {
+            path_continue = `${path_continue.split("-")[0]}-${path_continue.split("-")[2]}`;
+        }
+
+        // 调整分辨率和dpi，适应键鼠配置
+        setGameMetrics(1920, 1080, 1.25);
+        // 设置自动拾取
+        if (auto_pick) {
+            dispatcher.addTimer(new RealtimeTimer("AutoPick"));
+        }
 
         for (let i = 0; i < path_filter.length; i++) {
+            // 检查时间
+            if (is_time_kill && time_target < new Date()) {
+                let time_now = `${new Date().getHours()}:${new Date().getMinutes()}`;
+                log.info(`预定时间(${kill_hour}:${kill_minute})已到(当前时间：${time_now})，终止运行...`);
+                return null;
+            }
             // 路径详细信息
             const path_msg = get_pathing_msg(path_filter[i]);
             try {
-                log.info(`当前钓鱼点: ${path_msg["area"]}-${path_msg["detail"]}(进度: ${i + 1}/${path_filter.length})`);
+                let current_msg = `${path_msg["area"]}-${path_msg["detail"]}`
+                log.info(`当前钓鱼点: ${current_msg}(进度: ${i + 1}/${path_filter.length})`);
+                if (path_continue === current_msg) {
+                    is_continue = false;
+                }
 
-                await run_file(path_msg, time_out_throw, time_out_whole);
+                // 从选择的点位继续
+                if (path_continue !== "无(默认)" && !is_con && is_continue && path_filter.length === path_pathing.length) {
+                    log.info("跳过...");
+                    continue;
+                }
+
+                await run_file(path_msg, time_out_throw, time_out_whole, is_con, block_gcm, block_fight, block_tsurumi, auto_skip);
             } catch (error) {
                 const file_name = `${path_msg["area"]}-${path_msg["type"]}-${path_msg["detail"]}`;
                 log.info(`路径: ${file_name} 执行时出错，已跳过...\n错误信息: ${error}`)
