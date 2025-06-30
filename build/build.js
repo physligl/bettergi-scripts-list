@@ -144,6 +144,47 @@ function convertNewlines(text) {
     return text.replace(/\\n/g, '\n');
 }
 
+// 处理作者信息的通用函数
+function processAuthorInfo(authorInfo) {
+    if (!authorInfo) return '';
+    
+    // 如果是字符串，直接返回
+    if (typeof authorInfo === 'string') {
+        return authorInfo.trim();
+    }
+    
+    // 如果是数组，处理多个作者
+    if (Array.isArray(authorInfo)) {
+        return authorInfo.map(author => {
+            if (typeof author === 'string') {
+                return { name: author.trim() };
+            } else if (typeof author === 'object' && author.name) {
+                const authorObj = { name: author.name.trim() };
+                if (author.link) {
+                    authorObj.link = author.link;
+                } else if (author.links) {
+                    authorObj.link = author.links;
+                }
+                return authorObj;
+            }
+            return null;
+        }).filter(author => author !== null);
+    }
+    
+    // 如果是对象
+    if (typeof authorInfo === 'object' && authorInfo.name) {
+        const authorObj = { name: authorInfo.name.trim() };
+        if (authorInfo.link) {
+            authorObj.link = authorInfo.link;
+        } else if (authorInfo.links) {
+            authorObj.link = authorInfo.links;
+        }
+        return authorObj;
+    }
+    
+    return '';
+}
+
 // 过滤长标签的通用函数，一个汉字算两个字符
 function filterLongTags(tags) {
     return tags.filter(tag => {
@@ -200,9 +241,8 @@ function extractInfoFromCombatFile(filePath) {
     const version = versionMatch ? versionMatch[1].trim() : 
                    (gitTimestamp ? formatTime(gitTimestamp) : 
                     calculateSHA1(filePath).substring(0, 7));
-    
-    return {
-        author: authorMatch ? authorMatch[1].trim() : '',
+      return {
+        author: processAuthorInfo(authorMatch ? authorMatch[1].trim() : '') || '',
         description: descriptionMatch ? convertNewlines(descriptionMatch[1].trim()) : '',
         tags: prioritizeVersionTag(filterLongTags(tags)),
         version: version,
@@ -233,12 +273,13 @@ function extractInfoFromJSFolder(folderPath) {
                 if (minVersionTag) {
                     tags.unshift(minVersionTag);
                 }
-            }
-            
+            }            // 处理作者信息
+            const authors = processAuthorInfo(manifest.authors);
+
             return {
                 version: manifest.version || '',
                 description: convertNewlines(combinedDescription),
-                author: manifest.authors && manifest.authors.length > 0 ? manifest.authors[0].name : '',
+                author: authors,
                 tags: prioritizeVersionTag(filterLongTags(tags)),
                 lastUpdated: lastUpdated
             };
@@ -315,10 +356,8 @@ function extractInfoFromPathingFile(filePath, parentFolders) {
     tags = [...new Set(tags)];
     
     // 过滤掉超过10个字符的标签，并确保版本标签优先
-    tags = prioritizeVersionTag(filterLongTags(tags));
-
-    return {
-        author: contentObj.info?.author || '',
+    tags = prioritizeVersionTag(filterLongTags(tags));    return {
+        author: processAuthorInfo(contentObj.info?.author) || '',
         description: convertNewlines(contentObj.info?.description || ''),
         version: version,
         tags: tags,
@@ -354,9 +393,8 @@ function extractInfoFromTCGFile(filePath, parentFolder) {
     const version = versionMatch ? versionMatch[1].trim() : 
                    (gitTimestamp ? formatTime(gitTimestamp) : 
                     calculateSHA1(filePath).substring(0, 7));
-    
-    return {
-        author: authorMatch ? authorMatch[1].trim() : '',
+      return {
+        author: processAuthorInfo(authorMatch ? authorMatch[1].trim() : '') || '',
         description: descriptionMatch ? convertNewlines(descriptionMatch[1].trim()) : '',
         tags: prioritizeVersionTag(filterLongTags([...new Set(tags)])),  // 去重并过滤长标签
         version: version,
